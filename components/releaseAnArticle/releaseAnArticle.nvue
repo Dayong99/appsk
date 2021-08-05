@@ -1,0 +1,56 @@
+<template>
+	<div>
+		<view class="The-party-culture" v-for="(item,index) in VrArticleListLists" :key="index" @click="ClickDetails(item)">
+			<view style="line-height: 50rpx;">
+				<view class="Group-activities-tit">{{item.title}}</view>
+				<view class="The-party-culture-tim">
+					<text>创建时间：</text>
+					<text>{{item.createTime}}</text>
+				</view>
+			</view>
+		</view>
+	</div>
+</template>
+
+<script>
+	export default {
+		props:['VrArticleListLists'],
+		data(){
+			return {
+				
+			}
+		},
+		filters:{
+			//筛选图片
+			filtList(value){
+				// console.log(value.split(','))
+				// value.split(',')
+				return value.split(',')[0]
+			}
+		},
+		mounted() {
+			// console.log('88888',this.VrActivityLists)
+		},
+		methods:{
+			ClickDetails(item){
+				
+				this.$emit('ClickDetails',item)
+			}
+		}
+	}
+</script>
+
+<style>
+	.The-party-culture {
+		padding: 24rpx 40rpx;
+		font-family: PingFang-SC-Medium;
+		font-weight: Medium;
+		font-size: 30rpx;
+		border-bottom: 1rpx solid #EAE7E7;
+	}
+	.The-party-culture-tim {
+		font-size: 26rpx;
+		color: #A5A4AB;
+		margin-top: 4rpx;
+	}
+</style>

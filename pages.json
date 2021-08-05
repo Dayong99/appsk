@@ -1,0 +1,916 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/login/login",
+			"style": {
+				"navigationBarTitleText": "登录"
+			}
+		},
+		{
+			"path": "pages/index/index",
+			"style": {
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},
+		// 首页-新闻页
+		{
+			"path": "pages/news/newsDetail",
+			"style": {
+				"navigationBarTitleText": "首页-新闻详情页",
+				"enablePullDownRefresh": false
+				// "navigationBarBackgroundColor": "white",
+				// "navigationBarTextStyle": "black"
+			}
+		},
+		// 水库汇总页面
+		{
+			"path": "pages/reservoirSum/reservoirSum",
+			"style": {
+				"navigationBarTitleText": "水库汇总",
+				"enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "white",
+				"navigationBarTextStyle": "black"
+			}
+		}, {
+			"path": "pages/reservoirSum/search",
+			"style": {
+				"navigationBarTitleText": "水库汇总-搜索页面",
+				"enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "white",
+				"navigationBarTextStyle": "black"
+			}
+		}, {
+			"path": "pages/reservoirSum/detail",
+			"style": {
+				"navigationBarTitleText": "水库汇总-详情页面",
+				"enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "white",
+				"navigationBarTextStyle": "black"
+			}
+		}, {
+			"path": "pages/workbench/workbench",
+			"style": {
+				"navigationBarTitleText": "工作台",
+				"enablePullDownRefresh": false
+			}
+		}, {
+			"path": "pages/workbench/TheReservoirLandscape",
+			"style": {
+				"navigationBarTitleText": "水库风光",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/ViewTheDetails/ViewTheDetails",
+			"style": {
+				"navigationBarTitleText": "水库风光-详情",
+				"enablePullDownRefresh": false
+			}
+		},{
+			"path": "pages/workbench/cloudPolling",
+			"style": {
+				"navigationBarTitleText": "工作台-云巡检",
+				"enablePullDownRefresh": false
+			}
+		}, {
+			"path": "pages/workbench/reservoirPolling",
+			"style": {
+				"navigationBarTitleText": "巡检",
+				"enablePullDownRefresh": false
+			}
+		}, {
+			"path": "pages/workbench/monitorMap",
+			"style": {
+				"navigationBarTitleText": "监控地图",
+				"enablePullDownRefresh": false
+			}
+
+		},
+		{
+			"path": "pages/cloud-services/AllCloud",
+			"style": {
+				"navigationBarTitleText": "云巡检记录",
+				"enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "white",
+				"navigationBarTextStyle": "black"
+			}
+		},
+		{
+			"path": "pages/cloud-services/cloudAmend",
+			"style": {
+				"navigationBarTitleText": "云巡检记录",
+				"enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "white",
+				"navigationBarTextStyle": "black"
+			}
+		},
+		// 上报问题旧页面
+		{
+			"path": "pages/workbench/reportProblem",
+			"style": {
+				"navigationBarTitleText": "上报问题",
+				"enablePullDownRefresh": false
+			}
+		},
+		// 上报问题页
+		{
+			"path": "pages/gorectifyorder/gorectifyorder",
+			"style": {
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		}, {
+			"path": "pages/workbench/tips",
+			"style": {
+				"navigationBarTitleText": "工作台-消息列表",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/workbench/reservoirRepair",
+			"style": {
+				"navigationBarTitleText": "工作台-水库保养",
+				"enablePullDownRefresh": false
+			}
+		}, {
+			"path": "pages/workbench/repairDetail",
+			"style": {
+				"navigationBarTitleText": "工作台-水库保养-详情页",
+				"enablePullDownRefresh": false
+			}
+		}, {
+			"path": "pages/workbench/inspectionCompleted",
+			"style": {
+				"navigationBarTitleText": "工作台-水库保养-详情页-扫一扫-巡检完成",
+				"enablePullDownRefresh": false
+			}
+		}, {
+			"path": "pages/workbench/toReservoirCheck",
+			"style": {
+				"navigationBarTitleText": "工作台-水库保养-去检查页",
+				"enablePullDownRefresh": false
+			}
+		}, {
+			"path": "pages/workbench/dangerousDetails",
+			"style": {
+				"navigationBarTitleText": "工作台-水库保养-隐患整改详情页",
+				"enablePullDownRefresh": false
+			}
+		}, {
+			"path": "pages/workbench/aiMonitor",
+			"style": {
+				"navigationBarTitleText": "工作台-AI监控",
+				"enablePullDownRefresh": false
+			}
+		}, {
+			"path": "pages/workbench/AIDetail",
+			"style": {
+				"navigationBarTitleText": "工作台-AI监控-AI监控详情",
+				"enablePullDownRefresh": false
+			}
+		}, 
+		{
+			"path": "pages/AiMonitoring/AiMonitoring",
+			"style": {
+				"navigationBarTitleText": "AI监控",
+				"enablePullDownRefresh": false
+			}
+		},{
+			"path": "pages/workbench/integralJuicing",
+			"style": {
+				"navigationBarTitleText": "工作台-积分榜单",
+				"enablePullDownRefresh": false
+			}
+		}, {
+			"path": "pages/workbench/videoList",
+			"style": {
+				"navigationBarTitleText": "工作台-积分榜单-视频列表",
+				"enablePullDownRefresh": false
+			}
+		}, {
+			"path": "pages/workbench/searchVideo",
+			"style": {
+				"navigationBarTitleText": "工作台-积分榜单-视频搜索",
+				"enablePullDownRefresh": false
+			}
+		}, {
+			"path": "pages/workbench/goVideo",
+			"style": {
+				"navigationBarTitleText": "工作台-积分榜单-视频详情",
+				"enablePullDownRefresh": false
+			}
+		}, {
+			"path": "pages/workbench/articleLists",
+			"style": {
+				"navigationBarTitleText": "工作台-积分榜单-阅读文章文章列表",
+				"enablePullDownRefresh": false
+			}
+		}, {
+			"path": "pages/workbench/searchArticle",
+			"style": {
+				"navigationBarTitleText": "工作台-积分榜单-阅读文章文章搜索",
+				"enablePullDownRefresh": false
+			}
+		}, {
+			"path": "pages/workbench/goArticle",
+			"style": {
+				"navigationBarTitleText": "工作台-积分榜单-阅读文章文章详情",
+				"enablePullDownRefresh": false
+			}
+		}, {
+			"path": "pages/workbench/answer",
+			"style": {
+				"navigationBarTitleText": "工作台-积分榜单-安全知识答题",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/deviceList/deviceList",
+			"style": {
+				"navigationBarTitleText": "工作台——视频监控——视频监控列表",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/party-culture/partyCulture",
+			"style": {
+				"navigationBarTitleText": "党建文化",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/ThePartyDetails/ThePartyDetails",
+			"style": {
+				"navigationBarTitleText": "党建详情",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/my/my",
+			"style": {
+				"navigationBarTitleText": "个人中心",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/home/home",
+			"style": {
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},
+		{
+			"path": "pages/webview/webview",
+			"style": {
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},
+		// 提醒页面
+		{
+			"path": "pages/shop/remind",
+			"style": {
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},
+		{
+			"path": "pages/maintenance/service",
+			"style": {
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},
+		// 更多筛选
+		{
+			"path": "pages/maintenance/Morescreening",
+			"style": {
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},
+		// 扫一扫
+		{
+			"path": "pages/maintenance/qrcode",
+			"style": {
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},
+		// 维保记录
+		{
+			"path": "pages/maintenance/mainrecord",
+			"style": {
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},
+		// 设备检查
+		{
+			"path": "pages/maintenance/examine",
+			"style": {
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},
+		// 设备台账
+		{
+			"path": "pages/maintenance/standing",
+			"style": {
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},
+		// 检查保养
+		{
+			"path": "pages/maintenance/planaudit",
+			"style": {
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},
+		{
+			"path": "pages/maintenance/planupkeep",
+			"style": {
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},
+		// 设备附件
+		{
+			"path": "pages/maintenance/adjunct",
+			"style": {
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},
+		// 设备抽检
+		{
+			"path": "pages/maintenance/spot",
+			"style": {
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},
+		// 设备保养
+		{
+			"path": "pages/maintenance/maintain",
+			"style": {
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},
+		// 设备维修
+		{
+			"path": "pages/maintenance/equipment",
+			"style": {
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},
+		// 设备维保
+		{
+			"path": "pages/equipment/equipment",
+			"style": {
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},
+		// 去巡检
+		{
+			"path": "pages/gorouteimg/gorouteimg",
+			"style": {
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},
+		// 巡检查询
+		{
+			"path": "pages/pollingout/pollingout",
+			"style": {
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},
+
+		// 去整改详情
+		{
+			"path": "pages/gorectifydetail/gorectifydetail",
+			"style": {
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},
+		// 去验收
+		{
+			"path": "pages/gocheck/gocheck",
+			"style": {
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},
+		// 去整改
+		{
+			"path": "pages/gorectify/gorectify",
+			"style": {
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},
+		// 巡检计划
+		{
+			"path": "pages/polling/polling",
+			"style": {
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},
+		// 质量巡检
+		{
+			"path": "pages/qualityPolling/qualityPolling",
+			"style": {
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},
+		// 视频监控
+		{
+			"path": "pages/videoSurveillance/videoSurveillance",
+			"style": {
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},
+		// 压力机
+		{
+			"path": "pages/punch/punch",
+			"style": {
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},
+		{
+			"path": "pages/updatepeople/updatepeople",
+			"style": {
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},
+		{
+			"path": "pages/affiliated/affiliated",
+			"style": {
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},
+		{
+			"path": "pages/echartspage/echartspage",
+			"style": {
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},
+		{
+			"path": "pages/bridgesearch/bridgesearch",
+			"style": {
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},
+		{
+			"path": "pages/pdf/pdf",
+			"style": {
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},
+		{
+			"path": "pages/beamfield/beamfield",
+			"style": {
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},
+		{
+			"path": "pages/relevance/relevance",
+			"style": {
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},
+		{
+			"path": "pages/moreout/moreout",
+			"style": {
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},
+		{
+			"path": "pages/datodetail/datodetail",
+			"style": {
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},
+		{
+			"path": "pages/beamfieldDetail/beamfieldDetail",
+			"style": {
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},
+		{
+			"path": "pages/updateprogress/updateprogress",
+			"style": {
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},
+		{
+			"path": "pages/wagon/wagon",
+			"style": {
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},
+		{
+			"path": "pages/document/document",
+			"style": {
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},
+		{
+			"path": "pages/wagondetail/wagondetail",
+			"style": {
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},
+		{
+			"path": "pages/wagonpic/wagonpic",
+			"style": {
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},
+		{
+			"path": "pages/wagonhistory/wagonhistory",
+			"style": {
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},
+		{
+			"path": "pages/wagonhistrorydetail/wagonhistrorydetail",
+			"style": {
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},
+		{
+			"path": "pages/wagonSearch/wagonSearch",
+			"style": {
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},
+		{
+			"path": "pages/wagonecharts/wagonecharts",
+			"style": {
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},
+		{
+			"path": "pages/topic-details/topic-details",
+			"style": {
+				"navigationBarTitleText": "话题详情",
+				"disableScroll": true // 页面整体不能上下滚动
+			}
+		}, {
+			"path": "pages/album-details/album-details",
+			"style": {
+				"navigationBarTitleText": "视频详情",
+				"disableScroll": true
+			}
+		}, {
+			"path": "pages/album-rank/album-rank",
+			"style": {
+				"navigationBarTitleText": "文章详情",
+				"disableScroll": false // 页面整体不能上下滚动
+			}
+		}, {
+			"path": "pages/searchValue/searchValue",
+			"style": {
+				"navigationBarTitleText": "搜索",
+				"disableScroll": false // 页面整体不能上下滚动
+			}
+		}, {
+			"path": "pages/draw/draw",
+			"style": {
+				"navigationBarTitleText": "兑换详情",
+				"disableScroll": false // 页面整体不能上下滚动
+			}
+		}, {
+			"path": "pages/org-details/org-details",
+			"style": {
+				"navigationBarTitleText": "活动详情",
+				"disableScroll": true // 页面整体不能上下滚动
+			}
+		}, {
+			"path": "pages/comm-list/comm-list",
+			"style": {
+				"navigationBarTitleText": "安全知识答题",
+				"disableScroll": false, // 页面整体不能上下滚动
+				"navigationStyle": "custom",
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		}, {
+			"path": "pages/atte-list/atte-list",
+			"style": {
+				"navigationBarTitleText": "文章列表",
+				"titleNView": false
+			}
+		}, {
+			"path": "pages/signin-record/signin-record",
+			"style": {
+				// "navigationBarTitleText": "签到记录",
+				"disableScroll": true, // 页面整体不能上下滚动
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		}, {
+			"path": "pages/punish-list/punish-list",
+			"style": {
+				"navigationBarTitleText": "处罚公示",
+				"disableScroll": true, // 页面整体不能上下滚动
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		}, {
+			"path": "pages/black-list/black-list",
+			"style": {
+				"navigationBarTitleText": "视频列表",
+				"disableScroll": true, // 页面整体不能上下滚动
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		}, {
+			"path": "pages/account-security/account-security",
+			"style": {
+				"navigationBarTitleText": "账户与安全",
+				"disableScroll": true // 页面整体不能上下滚动
+			}
+		}, {
+			"path": "pages/my-news/my-news",
+			"style": {
+				"navigationBarTitleText": "我的消息"
+			}
+		}, {
+			"path": "pages/intima/intima",
+			"style": {
+				"navigationBarTitleText": "隐私政策"
+			}
+		}
+		//压力机
+		, {
+			"path": "pages/punch/punch",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
+		}
+		//视频监控
+		, {
+			"path": "pages/videoSurveillance/videoSurveillance",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
+		}
+		//压力机试验列表
+		, {
+			"path": "pages/experimentList/experimentList",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+		}, {
+			"path": "pages/workbench/cloudPolling",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/workbench/reservoirRepair",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
+		}
+
+		, {
+			"path": "pages/workbench/monitorMap",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/videoSurveillance/videoSurveillance",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/workbench/goVideo",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/workbench/searchVideo",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/workbench/articleLists",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/workbench/goArticle",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/workbench/searchArticle",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/workbench/answer",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+		}
+	],
+
+	//此配置为小程序的分包加载机制。在5+App里始终为整包。
+	// "subPackages": [{
+	//   "root": "pages/news",
+	//   "pages": [{
+	//     "path": "news-notice/news-notice",
+	//     "style": {
+	//       "navigationBarTitleText": "公告",
+	//       "disableScroll":true // 页面整体不能上下滚动
+	//     }
+	//   }, {
+	//     "path": "news-top/news-top",
+	//     "style": {
+	//       "navigationBarTitleText": "赞",
+	//       "disableScroll":true // 页面整体不能上下滚动
+	//     }
+	//   }, {
+	//     "path": "news-remind/news-remind",
+	//     "style": {
+	//       "navigationBarTitleText": "提醒",
+	//       "disableScroll":true // 页面整体不能上下滚动
+	//     }
+	//   }, {
+	//     "path": "news-comment/news-comment",
+	//     "style": {
+	//       "navigationBarTitleText": "评论",
+	//       "disableScroll":true // 页面整体不能上下滚动
+	//     }
+	//   }, {
+	//     "path": "news-topic/news-topic",
+	//     "style": {
+	//       "navigationBarTitleText": "话题",
+	//       "disableScroll":true // 页面整体不能上下滚动
+	//     }
+	//   }]
+	// }],
+	//模式配置，仅开发期间生效
+	"condition": {
+		"current": 0, //当前激活的模式（list 的索引项）
+		"list": [{
+			"name": "index",
+			"path": "pages/index/index"
+		}, {
+			"name": "trend-details", //模式名称
+			"path": "pages/trend-details/trend-details", //启动页面，必选
+			"query": "id=2638118&fromPage=home&current=0" //启动参数，在页面的onLoad函数里面得到。
+		}]
+	},
+	// 全局样式中去除顶部导航条、原生滚动条、原生回弹阴影
+	//  "globalStyle": {
+	//    "navigationBarBackgroundColor": "#ff6699",
+	//    "navigationBarTextStyle": "white",
+	// "globalStyle": { "navigationStyle": "custom" }
+	//  }
+	"globalStyle": {
+		"navigationStyle": "custom"
+	},
+	"tabBar": {
+		// "color": "#999999",
+		// "selectedColor": "#e34969",
+		// "borderStyle": "black",
+		// "backgroundColor": "#FFFFFF",
+		// "iconWidth": "24px",
+		"list": [{
+				"text": "首页",
+				"pagePath": "pages/index/index",
+				"iconPath": "static/icon-bottom-nav/news.png",
+				"selectedIconPath": "/static/icon-bottom-nav/news-select.png"
+			},
+			{
+				"text": "水库汇总",
+				"pagePath": "pages/reservoirSum/reservoirSum",
+				"iconPath": "static/icon-bottom-nav/reservoir.png",
+				"selectedIconPath": "static/icon-bottom-nav/reservoir-select.png"
+			},
+			{
+				"text": "工作台",
+				"pagePath": "pages/workbench/workbench",
+				"iconPath": "static/icon-bottom-nav/work.png",
+				"selectedIconPath": "static/icon-bottom-nav/work-select.png"
+			}
+			,{
+				"text": "个人中心",
+				"pagePath": "pages/my/my",
+				"iconPath": "static/icon-bottom-nav/profile.png",
+				"selectedIconPath": "static/icon-bottom-nav/profile-select.png"
+			}
+			
+		]
+	}
+}

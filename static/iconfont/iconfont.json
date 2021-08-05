@@ -1,0 +1,30 @@
+{
+  "id": "2584481",
+  "name": "reservoir",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "591156",
+      "name": "搜索",
+      "font_class": "sousuo",
+      "unicode": "e636",
+      "unicode_decimal": 58934
+    },
+    {
+      "icon_id": "10588410",
+      "name": "搜索",
+      "font_class": "sousuo1",
+      "unicode": "e647",
+      "unicode_decimal": 58951
+    },
+    {
+      "icon_id": "19491887",
+      "name": "搜索",
+      "font_class": "sousuo2",
+      "unicode": "e604",
+      "unicode_decimal": 58884
+    }
+  ]
+}

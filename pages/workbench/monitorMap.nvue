@@ -1,0 +1,447 @@
+<template>
+	<div style="height: 70rpx;background-color: #bfbfbf;width: 750rpx;"></div>
+	<map :style="{height: nowMapIndex ? nintyPercentScreenHeight : seventyPercentScreenHeight,width:'750rpx'}"
+		class="map" ref="map1" :markers="markers" :show-compass="showCompass" :enable-overlooking="true"
+		@markertap="markertap" :enable-zoom="true" :enable-rotate="true" :enable-scroll="true" :controls="controls"
+		:scale="scale" :longitude="location.longitude" :latitude="location.latitude" :show-location="showLocation"
+		:enable-3D="enable3D" :rotate="rotate" :skew="skew" :enable-satellite="enableSatellite"
+		:enable-traffic="enableTraffic" :polyline="polyline" :circles="circles" :polygons="polygons"
+		:include-points="includePoints"></map>
+	<uni-list>
+		<!-- <uni-list-item :show-arrow="false" :show-switch="true" :switch-checked="enable3D" title="显示3D楼块"
+				@switchChange="enableThreeD" /> -->
+		<!-- <uni-list-item :show-arrow="false" :show-switch="true" :switch-checked="showCompass" title="显示指南针"
+				@switchChange="changeShowCompass" /> -->
+		<!-- 			<uni-list-item :show-arrow="false" :show-switch="true" :switch-checked="enableOverlooking" title="开启俯视"
+				@switchChange="changeEnableOverlooking" /> -->
+		<!-- <uni-list-item :show-arrow="false" :show-switch="true" :switch-checked="enableZoom" title="是否支持缩放"
+				@switchChange="changeEnableZoom" /> -->
+		<!-- <uni-list-item :show-arrow="false" :show-switch="true" :switch-checked="enableScroll" title="是否支持拖动"
+				@switchChange="changeEnableScroll" /> -->
+		<!-- <uni-list-item :show-arrow="false" :show-switch="true" :switch-checked="enableRotate" title="是否支持旋转"
+				@switchChange="changeEnableRotate" /> -->
+		<uni-list-item :show-arrow="false" :show-switch="true" :switch-checked="enableSatellite" title="是否开启卫星图"
+			@switchChange="changeEnableSatellite" />
+		<!-- <uni-list-item :show-arrow="false" :show-switch="true" :switch-checked="enableTraffic" title="是否开启实时路况"
+				@switchChange="changeEnableTraffic" /> -->
+	</uni-list>
+	<image
+		:style="{top: nowMapIndex ? backHeight : seventyPercentScreenHeight,width:'50rpx',height:'50rpx', left: '30rpx'}"
+		@click="goBack" src="../../static/workbench/mapBack.png"></image>
+</template>
+
+<script>
+	import uniList from '@/components/uni-list/uni-list.vue'
+	import uniListItem from '@/components/uni-list-item/uni-list-item.vue'
+	import {
+		deviceList, //设备列表接口
+	} from "@/api/AlbumServer.js"
+	const testMarkers = [{
+			id: 0,
+			latitude: 39.989631,
+			longitude: 116.481018,
+			title: '方恒国际 阜通东大街6号',
+			zIndex: '1',
+			rotate: 0,
+			width: 20,
+			height: 20,
+			anchor: {
+				x: 0.5,
+				y: 1
+			},
+			callout: {
+				content: '方恒国际 阜通东大街6号',
+				color: '#00BFFF',
+				fontSize: 10,
+				borderRadius: 4,
+				borderWidth: 1,
+				borderColor: '#333300',
+				bgColor: '#CCFF99',
+				padding: '5',
+				display: 'ALWAYS'
+			}
+		},
+		{
+			id: 1,
+			latitude: 39.9086920000,
+			longitude: 116.3974770000,
+			title: '天安门',
+			zIndex: '1',
+			iconPath: '/static/location.png',
+			width: 40,
+			height: 40,
+			anchor: {
+				x: 0.5,
+				y: 1
+			},
+			callout: {
+				content: '首都北京\n天安门',
+				color: '#00BFFF',
+				fontSize: 12,
+				borderRadius: 2,
+				borderWidth: 0,
+				borderColor: '#333300',
+				bgColor: '#CCFF11',
+				padding: '1',
+				display: 'ALWAYS'
+			}
+		}
+	];
+	const testPolyline = [{
+			points: [{
+					latitude: 39.925539,
+					longitude: 116.279037
+				},
+				{
+					latitude: 39.925539,
+					longitude: 116.520285
+				}
+			],
+			color: '#FFCCFF',
+			width: 7,
+			dottedLine: true,
+			arrowLine: true,
+			borderColor: '#000000',
+			borderWidth: 2
+		},
+		{
+			points: [{
+					latitude: 39.938698,
+					longitude: 116.275177
+				},
+				{
+					latitude: 39.966069,
+					longitude: 116.289253
+				},
+				{
+					latitude: 39.944226,
+					longitude: 116.306076
+				},
+				{
+					latitude: 39.966069,
+					longitude: 116.322899
+				},
+				{
+					latitude: 39.938698,
+					longitude: 116.336975
+				}
+			],
+			color: '#CCFFFF',
+			width: 5,
+			dottedLine: true,
+			arrowLine: true,
+			borderColor: '#CC0000',
+			borderWidth: 3
+		}
+	];
+	const testPolygons = [{
+			points: [{
+					latitude: 39.781892,
+					longitude: 116.293413
+				},
+				{
+					latitude: 39.787600,
+					longitude: 116.391842
+				},
+				{
+					latitude: 39.733187,
+					longitude: 116.417932
+				},
+				{
+					latitude: 39.704653,
+					longitude: 116.338255
+				}
+			],
+			fillColor: '#FFCCFF',
+			strokeWidth: 3,
+			strokeColor: '#CC99CC',
+			zIndex: 11
+		},
+		{
+			points: [{
+					latitude: 39.887600,
+					longitude: 116.518932
+				},
+				{
+					latitude: 39.781892,
+					longitude: 116.518932
+				},
+				{
+					latitude: 39.781892,
+					longitude: 116.428932
+				},
+				{
+					latitude: 39.887600,
+					longitude: 116.428932
+				}
+			],
+			fillColor: '#CCFFFF',
+			strokeWidth: 5,
+			strokeColor: '#CC0000',
+			zIndex: 3
+		}
+	];
+	const testCircles = [{
+			latitude: 39.996441,
+			longitude: 116.411146,
+			radius: 15000,
+			strokeWidth: 5,
+			color: '#CCFFFF',
+			fillColor: '#CC0000'
+		},
+		{
+			latitude: 40.096441,
+			longitude: 116.511146,
+			radius: 12000,
+			strokeWidth: 3,
+			color: '#CCFFFF',
+			fillColor: '#FFCCFF'
+		},
+		{
+			latitude: 39.896441,
+			longitude: 116.311146,
+			radius: 9000,
+			strokeWidth: 1,
+			color: '#CCFFFF',
+			fillColor: '#CC0000'
+		}
+	];
+	const testIncludePoints = [{
+			latitude: 39.989631,
+			longitude: 116.481018,
+		},
+		{
+			latitude: 39.9086920000,
+			longitude: 116.3974770000,
+		}
+	];
+	module.exports = {
+		components: {
+			uniList,
+			uniListItem
+		},
+		data() {
+			return {
+				deviceId: '', //视频设备id
+				deviceList: '', //设备列表数据
+				deviceNumber: '',
+
+				nowMapIndex: true,
+				phoneHeight: '', //屏幕高
+				phoneWidth: '', //屏幕宽
+				location: {
+					latitude: 33.307274,
+					longitude: 111.473645
+				},
+				controls: [{
+					id: 1,
+					position: {
+						left: 5,
+						top: 180,
+						width: 30,
+						height: 30
+					},
+					iconPath: '/static/logo.png',
+					clickable: true
+				}],
+				showLocation: false,
+				scale: 12,
+				showCompass: true,
+				enable3D: true,
+				enableOverlooking: true,
+				enableOverlooking: true,
+				enableZoom: true,
+				enableScroll: true,
+				enableRotate: true,
+				enableSatellite: true,
+				enableTraffic: false,
+				polyline: [],
+				markers: [{
+						id: 0,
+						latitude: 33.307274,
+						longitude: 111.473645,
+					},
+					//这里整体注释的原因是苹果的图标会放大，
+					// 安卓的图标保持不变，而设置宽高后安卓又不显示
+					// 所以要么整体不要，要么不要iconPath
+					// ,{
+					// 	id: 5,
+					// 	latitude: 33.307274,
+					// 	longitude: 111.473645,
+					// 	iconPath: '../../static/star.png',
+					// }
+				],
+
+				polygons: [],
+				circles: [],
+				includePoints: [],
+				rotate: 0,
+				skew: 0
+			}
+		},
+		onReady() {
+			// 计算屏幕高度 ，宽度
+			let _this = this;
+			uni.getSystemInfo({
+				success(res) {
+					_this.phoneHeight = res.windowHeight;
+					_this.phoneWidth = res.windowWidth
+				}
+			});
+		},
+		// longitude=${111.68167}&latitude=${33.234108}
+		onLoad(option) {
+			console.log('nvue2vue', option)
+			this.markers[0].latitude = option.latitude
+			this.location.latitude = option.latitude
+			this.location.longitude = option.longitude
+			this.markers[0].longitude = option.longitude
+			// 水库id因为是从nvue页面过来的系统兼容
+			if (plus.os.name === 'Android') {
+				this.reserIdToMonitor = option.reservoirId.slice(3)
+				console.log("this.reserIdToMonitor", this.reserIdToMonitor)
+			} else {
+				this.reserIdToMonitor = option.reservoirId
+				console.log("this.reserIdToMonitor", this.reserIdToMonitor)
+			}
+			console.log('nvue2vuethis.latitude', this.location.latitude)
+			console.log('nvue2vuethis.longitude', this.location.longitude)
+			this.getDeviceList()
+		},
+		computed: {
+			//计算
+			nintyPercentScreenHeight() { //百分之x的屏幕高
+				if (this.phoneHeight !== '' && this.phoneWidth !== '') {
+					return 750 / (this.phoneWidth) * (this.phoneHeight) * 0.852 + 'rpx'
+				} else {
+					return '1250rpx'
+				}
+
+			},
+			seventyPercentScreenHeight() { //百分之七十的屏幕高
+				if (this.phoneHeight !== '' && this.phoneWidth !== '') {
+					return 750 / (this.phoneWidth) * (this.phoneHeight) * 0.7 + 'rpx'
+				} else {
+					return '1000rpx'
+				}
+
+			},
+			backHeight() { //百分之x的屏幕高
+				if (this.phoneHeight !== '' && this.phoneWidth !== '') {
+					return '-' + 750 / (this.phoneWidth) * (this.phoneHeight) * 0.85 + 'rpx'
+				} else {
+					return '1250rpx'
+				}
+
+			},
+		},
+		methods: {
+			// 获取设备列表，因为只有一个设备所以只取第一个
+			getDeviceList() {
+				console.log('执行')
+				let params = {
+					relTenantIds: this.$store.getters['user/getAccountInfoData'].relTenantIds,
+					reservoirId: this.reserIdToMonitor,
+					deviceCatagory: 'camera',
+					pageNo: 1,
+					pageSize: 99
+				}
+				console.log('执行', params)
+				deviceList(params).then(res => {
+					console.log('获取设备列表所传参数', params)
+					if (res.data.code == 200) {
+						if (res.data.result.records) {
+							if (res.data.result.records == []) {
+								uni.showToast({
+									title: '该水库没有监控设备',
+									icon: 'none'
+								})
+							} else {
+								this.deviceList = res.data.result.records;
+								this.deviceId = this.deviceList[0].id
+								console.log('水库监控设备id', this.deviceId)
+								this.deviceNumber = this.deviceList[0].deviceNumber
+							}
+							console.log(this.deviceList)
+						} else { //接口请求失败的处理
+							uni.showToast({
+								title: res.data.msg,
+								icon: 'none'
+							})
+						}
+					}
+				});
+			},
+			goBack() {
+				// uni.navigateTo({
+				// 	url: "/pages/workbench/reservoirPolling"
+				// })
+				uni.navigateBack({
+
+				})
+			},
+			// map点击事件
+			markertap(e) {
+				if (e) {
+					this.markerId = e.detail.markerId
+				}
+				console.log(e.detail.markerId)
+				// 从地图页跳转到视频页，并将水库的数据传过去以供使用
+				uni.navigateTo({
+					url: `/pages/videoSurveillance/videoSurveillance?id=${this.deviceId}&deviceNumber=${this.deviceNumber}`
+				})
+			},
+			changeScale() {
+				this.scale = this.scale == 9 ? 15 : 9;
+			},
+			changeRotate() {
+				this.rotate = this.rotate == 90 ? 0 : 90;
+			},
+			changeSkew() {
+				this.skew = this.skew == 30 ? 0 : 30;
+			},
+			enableThreeD(e) {
+				this.enable3D = e.value;
+			},
+			changeShowCompass(e) {
+				this.showCompass = e.value;
+			},
+			changeEnableOverlooking(e) {
+				this.enableOverlooking = e.value;
+			},
+			changeEnableZoom(e) {
+				this.enableZoom = e.value;
+			},
+			changeEnableScroll(e) {
+				this.enableScroll = e.value;
+			},
+			changeEnableRotate(e) {
+				this.enableRotate = e.value;
+			},
+			changeEnableSatellite(e) {
+				this.enableSatellite = e.value;
+			},
+			changeEnableTraffic(e) {
+				this.enableTraffic = e.value;
+			}
+		}
+	}
+</script>
+
+<style>
+	.content {
+		flex: 1;
+
+	}
+
+	.map {
+		width: 750rpx;
+		height: 750rpx;
+		background-color: #f0f0f0;
+	}
+
+	.line {
+		height: 4px;
+		background-color: #000000;
+	}
+</style>

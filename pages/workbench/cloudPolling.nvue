@@ -1,0 +1,554 @@
+<template>
+
+	<!-- <view style="z-index:101; flex-direction: row; width: 100%;
+			height: 153rpx;
+			line-height: 193rpx;
+			background: linear-gradient(0deg, #208FE7, #208FE7);">
+		<view style="width: 40rpx; height: 40rpx;margin-left: 90rpx;margin-top: 50rpx;" @tap="goback">
+			<image src="../../static/fanhui1.png"></image>
+		</view>
+		<view style="font-weight: bold;color: #FFFFFF;margin-left: 375rpx;margin-top: 50rpx;">新闻详情</view>
+	</view> -->
+
+	<div style="height: 70rpx;background-color: #bfbfbf;width: 750rpx;"></div>
+	<map :style="{height: nowMapIndex ? nintyPercentScreenHeight : seventyPercentScreenHeight,width:'750rpx'}"
+		class="map" ref="map1" :markers="markers" :show-compass="showCompass" :enable-overlooking="true"
+		@markertap="markertap" :enable-zoom="true" :enable-rotate="true" :enable-scroll="true" :controls="controls"
+		:scale="scale" :longitude="location.longitude" :latitude="location.latitude" :show-location="showLocation"
+		:enable-3D="enable3D" :rotate="rotate" :skew="skew" :enable-satellite="enableSatellite"
+		:enable-traffic="enableTraffic" :polyline="polyline" :circles="circles" :polygons="polygons"
+		:include-points="includePoints"></map>
+	<uni-list>
+		<!-- <uni-list-item :show-arrow="false" :show-switch="true" :switch-checked="enable3D" title="显示3D楼块"
+					@switchChange="enableThreeD" /> -->
+		<!-- <uni-list-item :show-arrow="false" :show-switch="true" :switch-checked="showCompass" title="显示指南针"
+					@switchChange="changeShowCompass" /> -->
+		<!-- 			<uni-list-item :show-arrow="false" :show-switch="true" :switch-checked="enableOverlooking" title="开启俯视"
+					@switchChange="changeEnableOverlooking" /> -->
+		<!-- <uni-list-item :show-arrow="false" :show-switch="true" :switch-checked="enableZoom" title="是否支持缩放"
+					@switchChange="changeEnableZoom" /> -->
+		<!-- <uni-list-item :show-arrow="false" :show-switch="true" :switch-checked="enableScroll" title="是否支持拖动"
+					@switchChange="changeEnableScroll" /> -->
+		<!-- <uni-list-item :show-arrow="false" :show-switch="true" :switch-checked="enableRotate" title="是否支持旋转"
+					@switchChange="changeEnableRotate" /> -->
+		<uni-list-item :show-arrow="false" :show-switch="true" :switch-checked="enableSatellite" title="是否开启卫星图"
+			@switchChange="changeEnableSatellite" />
+		<!-- <uni-list-item :show-arrow="false" :show-switch="true" :switch-checked="enableTraffic" title="是否开启实时路况"
+					@switchChange="changeEnableTraffic" /> -->
+	</uni-list>
+	<!-- <text style="padding-left: 13rpx;padding-top: -8rpx; color: #cccccc;font-size: 50rpx; top: -1340rpx; margin-left: 30rpx;
+	 width: 50rpx;height: 50rpx;background-color: ##a7aab0;border-radius: 40rpx;" @click="goBack"><</text> -->
+	<image
+		:style="{top: nowMapIndex ? backHeight : seventyPercentScreenHeight,width:'50rpx',height:'50rpx', left: '30rpx'}"
+		@click="goBack" src="../../static/workbench/mapBack.png"></image>
+	<image
+		:style="{top: nowMapIndex ? searchHeight : seventyPercentScreenHeight,width:'50rpx',height:'50rpx', left: '670rpx'}"
+		@click="goSearch" src="../../static/reservoirSum/search.png"></image>
+</template>
+
+<script>
+	import uniList from '@/components/uni-list/uni-list.vue'
+	import uniListItem from '@/components/uni-list-item/uni-list-item.vue'
+	import {
+		getReservoir
+	} from "@/api/AlbumServer.js"
+	const testMarkers = [{
+			id: 0,
+			latitude: 39.989631,
+			longitude: 116.481018,
+			title: '方恒国际 阜通东大街6号',
+			zIndex: '1',
+			rotate: 0,
+			width: 20,
+			height: 20,
+			anchor: {
+				x: 0.5,
+				y: 1
+			},
+			callout: {
+				content: '方恒国际 阜通东大街6号',
+				color: '#00BFFF',
+				fontSize: 10,
+				borderRadius: 4,
+				borderWidth: 1,
+				borderColor: '#333300',
+				bgColor: '#CCFF99',
+				padding: '5',
+				display: 'ALWAYS'
+			}
+		},
+		{
+			id: 1,
+			latitude: 39.9086920000,
+			longitude: 116.3974770000,
+			title: '天安门',
+			zIndex: '1',
+			iconPath: '/static/location.png',
+			width: 40,
+			height: 40,
+			anchor: {
+				x: 0.5,
+				y: 1
+			},
+			callout: {
+				content: '首都北京\n天安门',
+				color: '#00BFFF',
+				fontSize: 12,
+				borderRadius: 2,
+				borderWidth: 0,
+				borderColor: '#333300',
+				bgColor: '#CCFF11',
+				padding: '1',
+				display: 'ALWAYS'
+			}
+		}
+	];
+	const testPolyline = [{
+			points: [{
+					latitude: 39.925539,
+					longitude: 116.279037
+				},
+				{
+					latitude: 39.925539,
+					longitude: 116.520285
+				}
+			],
+			color: '#FFCCFF',
+			width: 7,
+			dottedLine: true,
+			arrowLine: true,
+			borderColor: '#000000',
+			borderWidth: 2
+		},
+		{
+			points: [{
+					latitude: 39.938698,
+					longitude: 116.275177
+				},
+				{
+					latitude: 39.966069,
+					longitude: 116.289253
+				},
+				{
+					latitude: 39.944226,
+					longitude: 116.306076
+				},
+				{
+					latitude: 39.966069,
+					longitude: 116.322899
+				},
+				{
+					latitude: 39.938698,
+					longitude: 116.336975
+				}
+			],
+			color: '#CCFFFF',
+			width: 5,
+			dottedLine: true,
+			arrowLine: true,
+			borderColor: '#CC0000',
+			borderWidth: 3
+		}
+	];
+	const testPolygons = [{
+			points: [{
+					latitude: 39.781892,
+					longitude: 116.293413
+				},
+				{
+					latitude: 39.787600,
+					longitude: 116.391842
+				},
+				{
+					latitude: 39.733187,
+					longitude: 116.417932
+				},
+				{
+					latitude: 39.704653,
+					longitude: 116.338255
+				}
+			],
+			fillColor: '#FFCCFF',
+			strokeWidth: 3,
+			strokeColor: '#CC99CC',
+			zIndex: 11
+		},
+		{
+			points: [{
+					latitude: 39.887600,
+					longitude: 116.518932
+				},
+				{
+					latitude: 39.781892,
+					longitude: 116.518932
+				},
+				{
+					latitude: 39.781892,
+					longitude: 116.428932
+				},
+				{
+					latitude: 39.887600,
+					longitude: 116.428932
+				}
+			],
+			fillColor: '#CCFFFF',
+			strokeWidth: 5,
+			strokeColor: '#CC0000',
+			zIndex: 3
+		}
+	];
+	const testCircles = [{
+			latitude: 39.996441,
+			longitude: 116.411146,
+			radius: 15000,
+			strokeWidth: 5,
+			color: '#CCFFFF',
+			fillColor: '#CC0000'
+		},
+		{
+			latitude: 40.096441,
+			longitude: 116.511146,
+			radius: 12000,
+			strokeWidth: 3,
+			color: '#CCFFFF',
+			fillColor: '#FFCCFF'
+		},
+		{
+			latitude: 39.896441,
+			longitude: 116.311146,
+			radius: 9000,
+			strokeWidth: 1,
+			color: '#CCFFFF',
+			fillColor: '#CC0000'
+		}
+	];
+	const testIncludePoints = [{
+			latitude: 39.989631,
+			longitude: 116.481018,
+		},
+		{
+			latitude: 39.9086920000,
+			longitude: 116.3974770000,
+		}
+	];
+	module.exports = {
+		components: {
+			uniList,
+			uniListItem
+		},
+		data() {
+			return {
+				searchType: 'searchPolling',
+				markers: [],
+				setMarkers: [],
+				reservoirList: '', //水库信息
+				polling: null,
+				nowMapIndex: true,
+				phoneHeight: '', //屏幕高
+				phoneWidth: '', //屏幕宽
+				location: {
+					latitude: 33.307274,
+					longitude: 111.473645,
+					iconPath: '../../static/star.png',
+				},
+				controls: [{
+					id: 1,
+					position: {
+						left: 5,
+						top: 180,
+						width: 30,
+						height: 30
+					},
+					iconPath: '/static/logo.png',
+					clickable: true
+				}],
+				showLocation: false,
+				scale: 11.8,
+				showCompass: true,
+				enable3D: true,
+				enableOverlooking: true,
+				enableOverlooking: true,
+				enableZoom: true,
+				enableScroll: true,
+				enableRotate: true,
+				enableSatellite: true,
+				enableTraffic: false,
+				polyline: [],
+				polygons: [],
+				circles: [],
+				includePoints: [],
+				rotate: 0,
+				skew: 0
+			}
+		},
+		computed: { //计算
+			//地图高度百分之x的屏幕高
+			nintyPercentScreenHeight() {
+				if (this.phoneHeight !== '' && this.phoneWidth !== '') {
+					return 750 / (this.phoneWidth) * (this.phoneHeight) * 0.81 + 'rpx'
+				} else {
+					return '1250rpx'
+				}
+
+			},
+			seventyPercentScreenHeight() { //百分之七十的屏幕高
+				if (this.phoneHeight !== '' && this.phoneWidth !== '') {
+					return 750 / (this.phoneWidth) * (this.phoneHeight) * 0.7 + 'rpx'
+				} else {
+					return '1000rpx'
+				}
+
+			},
+			//返回按钮百分之x的屏幕高
+			backHeight() {
+				if (this.phoneHeight !== '' && this.phoneWidth !== '') {
+					return '-' + 750 / (this.phoneWidth) * (this.phoneHeight) * 0.82 + 'rpx'
+				} else {
+					return '1250rpx'
+				}
+
+			},
+			//搜索按钮百分之x的屏幕高
+			searchHeight() {
+				if (this.phoneHeight !== '' && this.phoneWidth !== '') {
+					return '-' + 750 / (this.phoneWidth) * (this.phoneHeight) * 0.855 + 'rpx'
+				} else {
+					return '1250rpx'
+				}
+
+			},
+		},
+		onReady() {
+			// 计算屏幕高度 ，宽度
+			let _this = this;
+			uni.getSystemInfo({
+				success(res) {
+					_this.phoneHeight = res.windowHeight;
+					_this.phoneWidth = res.windowWidth
+				}
+			});
+
+		},
+		onLoad(options) {
+			this.letGetReservoir()
+			setTimeout(() => {
+				uni.getStorage({
+					key: 'id', // 储存在本地的变量名
+					success: res => {
+						// 成功后的回调
+						this.markers = res.data
+						console.log('getStorage成功后的回调', this.markers);
+					}
+				})
+			}, 500)
+			// 1.1获取并存储数据至本地
+			// uni.$on('mark', (data) => {
+			// 	uni.setStorage({
+			// 		key: 'polling',
+			// 		data: data.polling,
+			// 		success: function() {
+			// 			console.log('在onLoad中获得polling');
+			// 		}
+			// 	})
+			// })
+			// 2.1
+			let that = this
+			uni.$on('mark', (data) => {
+				that.polling = data.polling
+				console.log('获取数据', that.polling)
+			})
+			if (options.longitude == undefined) {
+				this.location.longitude = 111.473645
+				this.location.latitude = 33.307274
+				this.location.iconPath = '../../static/star.png'
+			} else {
+				this.location.longitude = options.longitude
+				this.location.latitude = options.latitude
+				this.location.iconPath = '../../static/star.png'
+				this.scale = 14
+			}
+		},
+
+		onUnload() {
+			// // 1.3移除缓存数据
+			// uni.removeStorage({
+			// 	key: 'polling',
+			// 	success: function(res) {
+			// 		console.log('successRemoveStorageceshi');
+			// 	}
+			// });
+
+		},
+		methods: {
+			goSearch() {
+				uni.navigateTo({
+					/*一定要写绝对路径，这样在浏览器上和手机上才能都能跳转，
+					如果写相对路径，手机端是不能跳转的*/
+					url: `/pages/reservoirSum/search?data=${this.searchType}`
+				})
+			},
+			// 获取水库信息
+			letGetReservoir() {
+				let arr = {
+					pageNo: 1,
+					pageSize: 100,
+				}
+				getReservoir(arr).then(res => {
+					if (res.data.code === 200) {
+						this.reservoirList = res.data.result.records
+						// console.log('获取水库信息', this.reservoirList)
+						if (plus.os.name === 'Android') {
+							this.reservoirList.forEach((value, index) => {
+								this.setMarkers.push({
+									name: value.reservoirName,
+									id: 'aoz' + value.id,
+									latitude: value.latitude,
+									longitude: value.longitude,
+									label: {
+										content: value.reservoirName,
+										color: "#22b2ff"
+									}
+								})
+							})
+						} else {
+							this.reservoirList.forEach((value, index) => {
+								this.setMarkers.push({
+									name: value.reservoirName,
+									id: value.id,
+									latitude: value.latitude,
+									longitude: value.longitude,
+									label: {
+										content: value.reservoirName,
+										color: "#22b2ff"
+									}
+								})
+							})
+						}
+
+						uni.setStorage({
+							key: 'id', //存储值的名称
+							data: this.setMarkers.concat({
+								latitude: 33.307274,
+								longitude: 111.473645,
+								iconPath: '../../static/star.png',
+							}), //将要存储的数据,为西峡县政府加上一个图标
+							success: res => {
+								// 成功后的回调
+								console.log('setStorage成功后的回调', res.errMsg);
+							}
+						});
+					} else {
+						uni.showToast({
+							title: res.data.message,
+							icon: 'none',
+							duration: 1000
+						});
+					}
+				})
+				console.log('out getReservoir this.markers.length', this.markers.length)
+			},
+			goBack() {
+				uni.switchTab({
+					url: '/pages/workbench/workbench'
+				})
+				// // 1.2获取存储在本地的数据
+				// uni.getStorage({
+				// 	key: 'polling',
+				// 	success: function(res) {
+				// 		console.log('getStoragePolling', res.data);
+				// 		uni.navigateBack({
+				// 			delta: 2
+				// 		})
+				// 	}
+				// })
+				// uni.navigateBack({
+				// 	delta: 1
+				// })
+				// 2.2
+				// console.log('cishi', this.polling)
+				// if (this.polling === null) {
+				// 	console.log('向后退一步', this.polling)
+				// 	uni.navigateBack({
+
+				// 	})
+				// } else {
+				// 	console.log('向后退三步')
+				// 	uni.navigateBack({
+				// 		delta: 3
+				// 	})
+				// }
+				// 2.3
+				// 移除监听事件
+				uni.$off('mark');
+				console.log("移除监听事件")
+			},
+			// map点击事件
+			markertap(e) {
+				if (e) {
+					this.markerId = e.detail.markerId
+				}
+				// console.log('点击时的e', e)
+				// console.log('点击时的this.markerId', typeof(this.markerId))
+				// console.log('点击时的id', this.markerId)
+				// 从地图页跳转到巡检页，并将水库的数据传过去以供使用
+
+				let r = this.markers.filter(v => v.id == this.markerId)
+				// console.log('r', r)
+				uni.navigateTo({
+					url: `/pages/workbench/reservoirPolling?reservoir=${encodeURIComponent(JSON.stringify(this.markers.filter(v => v.id == this.markerId)))}`
+				})
+			},
+			changeScale() {
+				this.scale = this.scale == 9 ? 15 : 9;
+			},
+			changeRotate() {
+				this.rotate = this.rotate == 90 ? 0 : 90;
+			},
+			changeSkew() {
+				this.skew = this.skew == 30 ? 0 : 30;
+			},
+			enableThreeD(e) {
+				this.enable3D = e.value;
+			},
+			changeShowCompass(e) {
+				this.showCompass = e.value;
+			},
+			changeEnableOverlooking(e) {
+				this.enableOverlooking = e.value;
+			},
+			changeEnableZoom(e) {
+				this.enableZoom = e.value;
+			},
+			changeEnableScroll(e) {
+				this.enableScroll = e.value;
+			},
+			changeEnableRotate(e) {
+				this.enableRotate = e.value;
+			},
+			changeEnableSatellite(e) {
+				this.enableSatellite = e.value;
+			},
+			changeEnableTraffic(e) {
+				this.enableTraffic = e.value;
+			}
+		}
+	}
+</script>
+
+<style>
+	.content {
+		flex: 1;
+
+	}
+
+	.map {
+		width: 750rpx;
+		height: 750rpx;
+		background-color: #f0f0f0;
+	}
+
+	.line {
+		height: 4px;
+		background-color: #000000;
+	}
+</style>
